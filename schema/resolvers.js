@@ -1,5 +1,6 @@
 const { UserList, MovieList } = require("../FakeData");
-// const _ = require("lodash");
+//? since we arent using a REAL database, or JSON server, we can use LODASH temporarly
+const _ = require("lodash");
 
 const resolvers = {
   Query: {
@@ -7,13 +8,16 @@ const resolvers = {
     users: () => {
       return UserList;
     },
+    //or if dont want to use "parent" yet, can place as (_, args)
     user: (parent, args) => {
       const id = args.id;
+      //with lodash we can specify a list. followed by WHAT you WANT from the list
+      // our UserList is an Array of objects btw, so we open with brackets 
       const user = _.find(UserList, { id: Number(id) });
       return user;
     },
 
-    // MOVIE RESOLVERS
+    //* MOVIE RESOLVERS
     movies: () => {
       return MovieList;
     },
@@ -23,15 +27,16 @@ const resolvers = {
       return movie;
     },
   },
-//   User: {
-//     favoriteMovies: () => {
-//       return _.filter(
-//         MovieList,
-//         (movie) =>
-//           movie.yearOfPublication >= 2000 && movie.yearOfPublication <= 2010
-//       );
-//     },
-//   },
+  //* target favoriteMovies array INSIDE of User. Tell it to filter MovieList by yearOfPublication
+  User: {
+    favoriteMovies: () => {
+        // will use lodash for now
+      return _.filter(
+        MovieList,
+        (movie) => movie.yearOfPublication >= 2000 && movie.yearOfPublication <= 2010
+      );
+    },
+  },
 
 //   Mutation: {
 //     createUser: (parent, args) => {
