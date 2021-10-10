@@ -12,6 +12,21 @@ const { gql } = require("apollo-server");
 //* NEED a RESOLVER for this type explaining HOW we will be getting that data
 //* so HOW do we know which movies are the favored one's for EACH user??
 
+//?  Mutations, when using arguments within mutations, USE GraphQL's input
+//? Input: allows you to define inputs for arguments 
+//? input CreateUserInput {...}  (little diff from type's and interfaces)
+//? more like a bigger argument field that looks nicer
+
+//* input's(gql) can do MORE than types,
+//* ex. can do "age: Int" not required (no !), but can have it DEFAULTed to "age: Int = 18" if an AGE is NOT given. 
+
+//? make "createUser(input: CreateUserInput!): User" required: should pass in Input to CREATE a USer.
+
+// "nationality: Nationality = BRAZIL" making this NOT required when creating user inside Input.
+//? the reason being, if they DONT give EXACTLY spelling, it will fail. ( can do a converter tho, but nvm that)
+//? will just make it not required and add a DEFAULT value to it. 
+
+
 
 const typeDefs = gql`
   type User {

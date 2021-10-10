@@ -2,6 +2,9 @@ const { UserList, MovieList } = require("../FakeData");
 //? since we arent using a REAL database, or JSON server, we can use LODASH temporarly
 const _ = require("lodash");
 
+//* NOTE! Mutations are DIFFERENT from Query,  it is used to MUTATE the data
+//? ex. Query is like Get requests
+//? ex. Mutations are like Put Post Delete
 const resolvers = {
   Query: {
     // USER RESOLVERS
@@ -38,34 +41,34 @@ const resolvers = {
     },
   },
 
-//   Mutation: {
-//     createUser: (parent, args) => {
-//       const user = args.input;
-//       const lastId = UserList[UserList.length - 1].id;
-//       user.id = lastId + 1;
-//       UserList.push(user);
-//       return user;
-//     },
+  Mutation: {
+    createUser: (parent, args) => {
+      const user = args.input;
+      const lastId = UserList[UserList.length - 1].id;
+      user.id = lastId + 1;
+      UserList.push(user);
+      return user;
+    },
 
-//     updateUsername: (parent, args) => {
-//       const { id, newUsername } = args.input;
-//       let userUpdated;
-//       UserList.forEach((user) => {
-//         if (user.id === Number(id)) {
-//           user.username = newUsername;
-//           userUpdated = user;
-//         }
-//       });
+    // updateUsername: (parent, args) => {
+    //   const { id, newUsername } = args.input;
+    //   let userUpdated;
+    //   UserList.forEach((user) => {
+    //     if (user.id === Number(id)) {
+    //       user.username = newUsername;
+    //       userUpdated = user;
+    //     }
+    //   });
 
-//       return userUpdated;
-//     },
+    //   return userUpdated;
+    // },
 
-//     deleteUser: (parent, args) => {
-//       const id = args.id;
-//       _.remove(UserList, (user) => user.id === Number(id));
-//       return null;
-//     },
-//   },
+    // deleteUser: (parent, args) => {
+    //   const id = args.id;
+    //   _.remove(UserList, (user) => user.id === Number(id));
+    //   return null;
+    // },
+  },
 };
 
 module.exports = { resolvers };
